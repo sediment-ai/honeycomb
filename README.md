@@ -13,22 +13,15 @@ sediment captures what they do.
 
 ## How it works
 
-- **An agent is a file.** `agents/<role>.yaml` sets the harness, model,
-  pool size, and timeouts. `agents/prompts/<role>.md` holds the system
-  prompt.
-- **One command converges the fleet.** `scripts/apply.sh` renders every
-  agent and recreates only the pods that drift, one at a time.
-- **Credentials stay in the cluster.** Each render merges the yaml with
-  the agent's live Kubernetes Secret, so no key touches the repo.
-- **Models swap at the gateway.** Each `model_id` names a model. A
-  LiteLLM gateway routes it to a provider.
-- **Sediment captures the work.** Completions, decisions, commit
-  attribution, and edit survival flow from every agent into sediment.
-
-A conductor triages incoming work and routes it to six specialists:
-capture, derive, export, api, docs, and harness. Each specialist owns
-one beat and one channel. Tasks travel as GitHub issues. The owner
-approves every merge.
+- **Agents are files.** Config in `agents/<role>.yaml`, prompt in
+  `agents/prompts/<role>.md`.
+- **One command deploys.** `scripts/apply.sh` recreates only the pods
+  that drift from the repo.
+- **Credentials stay in the cluster.** Stored as K8s Secrets.
+- **Models swap at the gateway.** LiteLLM routes each `model_id` to a
+  provider.
+- **Sediment captures the work:** completions, decisions, commit
+  attribution, and edit survival.
 
 ## Getting started
 
