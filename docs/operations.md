@@ -35,14 +35,16 @@ Then:
    After that, rebuild only when `image/` changes.
 
    ```
-   BUILD_HOST=<your-build-host> SEDIMENT_CHECKOUT=~/code/sediment \
+   BUILD_HOST=<cluster-host> SEDIMENT_CHECKOUT=~/code/sediment \
      scripts/build-image.sh
    ```
 
-   The script builds the agent image on your build host and pushes it
-   to a local registry. It pulls `buzz-sprig:main` fresh each time, so
-   every build carries Buzz from main at build time. Then it pins the
-   image's digest in `image/DIGEST`.
+   `BUILD_HOST` is the SSH name of the machine that runs your cluster.
+   The script copies `image/` there, builds the agent image, and pushes
+   it to the cluster's local registry, which only that machine can
+   reach. It pulls `buzz-sprig:main` fresh each time, so every build
+   carries Buzz from main at build time. Then it pins the image's
+   digest in `image/DIGEST`.
 3. **Create the agent in the Buzz app.** Put it on the Kubernetes
    provider and give it the image by digest. The provider refuses a
    tag. Set the environment variables listed as yours under
@@ -120,7 +122,7 @@ provider, edit the local config, add the key, and restart the gateway.
 
 A Buzz update reaches the fleet in three steps, each one command:
 
-1. **Build.** Run `BUILD_HOST=<host> scripts/build-image.sh`. Its
+1. **Build.** Run `BUILD_HOST=<cluster-host> scripts/build-image.sh`. Its
    `--pull` refreshes `ghcr.io/block/buzz-sprig:main`, so the image
    carries Buzz from main. The script bakes in the capture clients from
    sediment@main, pushes to the cluster-local registry, and pins the

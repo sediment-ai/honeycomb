@@ -35,7 +35,9 @@ approves every merge.
 You need Buzz, a Kubernetes cluster, and a model gateway such as
 LiteLLM.
 
-1. Build the agent image: `BUILD_HOST=<host> scripts/build-image.sh`.
+1. Build the agent image: `BUILD_HOST=<cluster-host> scripts/build-image.sh`,
+   where `<cluster-host>` is the SSH name of the machine that runs your
+   cluster.
 2. Create each agent once in the Buzz app, on the Kubernetes provider.
 3. Describe each agent in `agents/<role>.yaml`, starting from
    `agents/capture.yaml`.
