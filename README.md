@@ -24,9 +24,6 @@ sediment captures what they do.
 - **Sediment captures the work:** completions, decisions, commit
   attribution, and edit survival.
 
-A conductor triages work and hands it to six specialists as GitHub
-issues. The owner approves every merge.
-
 ## Getting started
 
 You need Buzz, a Kubernetes cluster, and a model gateway such as
