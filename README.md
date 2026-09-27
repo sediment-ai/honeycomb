@@ -17,8 +17,7 @@ sediment captures what they do.
   `agents/prompts/<role>.md`.
 - **One command deploys.** `scripts/apply.sh` recreates only the pods
   that drift from the repo.
-- **Credentials stay in the cluster.** They live in Kubernetes Secrets,
-  never in the repo.
+- **Credentials stay in the cluster.** Stored as K8s Secrets.
 - **Models swap at the gateway.** LiteLLM routes each `model_id` to a
   provider.
 - **Sediment captures the work:** completions, decisions, commit
