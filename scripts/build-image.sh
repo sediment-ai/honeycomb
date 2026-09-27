@@ -6,10 +6,10 @@
 # image — the entrypoint skips capture setup when the scripts are empty.
 # Prints the digest to pin in pod manifests. The build runs on the
 # cluster host over ssh (the registry is localhost:5555 there); set
-# BUILD_HOST for your environment.
+# CLUSTER_HOST for your environment.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-BUILD_HOST="${BUILD_HOST:?set BUILD_HOST to the ssh alias of your cluster host}"
+CLUSTER_HOST="${CLUSTER_HOST:?set CLUSTER_HOST to the ssh alias of your cluster host}"
 SEDIMENT="${SEDIMENT_CHECKOUT:-$HOME/code/sediment-v2}"
 STAGE=$(mktemp -d)
 cp "$ROOT"/image/* "$STAGE/"
@@ -33,13 +33,13 @@ else
   touch "$STAGE/sediment_attribution.py" "$STAGE/sediment_transcript.py"
   echo '{}' > "$STAGE/config.json"
 fi
-rsync -a --delete "$STAGE/" "$BUILD_HOST":buzz-fleet-build/
+rsync -a --delete "$STAGE/" "$CLUSTER_HOST":buzz-fleet-build/
 rm -rf "$STAGE"
 # --pull refreshes buzz-sprig:main (and the other FROMs) so every build
 # carries the current Buzz; without it the cached base can go days stale.
 # Build/push noise goes to stderr; stdout is just the pushed digest,
 # which gets pinned into image/DIGEST for render.py.
-DIGEST=$(ssh "$BUILD_HOST" 'bash -lc "cd ~/buzz-fleet-build \
+DIGEST=$(ssh "$CLUSTER_HOST" 'bash -lc "cd ~/buzz-fleet-build \
   && docker build --pull --progress=plain -t localhost:5555/sediment-agent:latest . >&2 \
   && docker push localhost:5555/sediment-agent:latest | tee /dev/stderr | awk \"/digest:/{print \\\$3}\""')
 [ -n "$DIGEST" ] || { echo "no digest from push" >&2; exit 1; }

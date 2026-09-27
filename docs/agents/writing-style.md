@@ -12,7 +12,7 @@ overrides Google's guidance.
 
 This repo's pages come in two kinds. `README.md` and
 `docs/fleet-design.md` are explanation. `docs/operations.md` and
-`docs/getting-started.md` are how-to. A rule that fits a how-to is wrong
+`docs/join-the-fleet.md` are how-to. A rule that fits a how-to is wrong
 in explanation. Agent docs, this one included, sit outside both.
 
 Contributor doc. Imported from sediment-v2, adapted for this repo.
@@ -26,7 +26,7 @@ Check these first. A draft that clears all five is most of the way there.
    support X", never "doesn't currently support X". A dated record is the
    exception — it carries its date, so *new* means something there.
 2. **The reader is *you*; the software is never *we*.** Name the actor: "the
-   conductor routes work", "you set `BUILD_HOST`" — never "we then render
+   conductor routes work", "you set `CLUSTER_HOST`" — never "we then render
    the pod". *We* is the project speaking as author about its own choices
    and measurements ("we rejected X", "we run a single-node cluster"),
    which `README.md` and an explanation page such as
