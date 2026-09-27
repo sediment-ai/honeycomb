@@ -1,4 +1,4 @@
-# Getting started
+# Join the fleet
 
 How members of our team install Buzz and connect to the fleet that we
 run. The relay is private, so these steps work only with an invite from

@@ -12,7 +12,7 @@ overrides Google's guidance.
 
 This repo's pages come in two kinds. `README.md` and
 `docs/fleet-design.md` are explanation. `docs/operations.md` and
-`docs/getting-started.md` are how-to. A rule that fits a how-to is wrong
+`docs/join-the-fleet.md` are how-to. A rule that fits a how-to is wrong
 in explanation. Agent docs, this one included, sit outside both.
 
 Contributor doc. Imported from sediment-v2, adapted for this repo.

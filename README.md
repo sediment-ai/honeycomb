@@ -30,12 +30,19 @@ capture, derive, export, api, docs, and harness. Each specialist owns
 one beat and one channel. Tasks travel as GitHub issues. The owner
 approves every merge.
 
-## Why fleet-as-code
+## Getting started
 
-Buzz can't edit a deployed agent's Kubernetes config
-([buzz#2798](https://github.com/block/buzz/issues/2798)). Every change
-means recreating the agent by hand. With honeycomb, a change is one
-reviewed PR and one run of `scripts/apply.sh`.
+You need Buzz, a Kubernetes cluster, and a model gateway such as
+LiteLLM.
+
+1. Build the agent image: `BUILD_HOST=<host> scripts/build-image.sh`.
+2. Create each agent once in the Buzz app, on the Kubernetes provider.
+3. Describe each agent in `agents/<role>.yaml`, starting from
+   `agents/capture.yaml`.
+4. Converge the fleet: `scripts/apply.sh`.
+
+[Stand up an agent](docs/operations.md#stand-up-an-agent) covers each
+step, including the cluster names to change first.
 
 ## Layout
 
@@ -54,7 +61,7 @@ docs/        design, operations, and onboarding
   shaped this way.
 - [Operate the fleet](docs/operations.md) — stand up an agent, manage
   credentials and models, ship releases, and run the relay.
-- [Getting started](docs/getting-started.md) — how members of our team
+- [Join the fleet](docs/join-the-fleet.md) — how members of our team
   connect to the fleet.
 
 ## License

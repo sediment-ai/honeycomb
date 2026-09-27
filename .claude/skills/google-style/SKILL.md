@@ -9,7 +9,7 @@ the swap table, and this repo's overrides.
 
 Settle what the page is before you edit it. `README.md` and
 `docs/fleet-design.md` are explanation. `docs/operations.md` and
-`docs/getting-started.md` are how-to. A rule that fits a how-to is
+`docs/join-the-fleet.md` are how-to. A rule that fits a how-to is
 wrong in explanation — most of all the rule against *we*, which
 explanation is the place for.
 
