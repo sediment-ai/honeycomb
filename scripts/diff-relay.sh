@@ -5,7 +5,7 @@
 # converge the relay — it's a different lifecycle — so nothing else notices
 # when the two drift apart. Run this after touching either side.
 set -euo pipefail
-HOST="${RELAY_HOST:-${BUILD_HOST:?set RELAY_HOST or BUILD_HOST to the ssh alias of your cluster host}}"
+HOST="${CLUSTER_HOST:?set CLUSTER_HOST to the ssh alias of your cluster host}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 rc=0
 
