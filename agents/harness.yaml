@@ -1,0 +1,14 @@
+# harness — Buzz platform specialist (upstream repo + deployment docs)
+role: harness
+pod: buzz-agent-c0cd1c182085
+pubkey12: c0cd1c182085
+harness: pi
+base_secret: buzz-agent-c0cd1c182085-4e15723b   # live cluster Secret holding credentials; referenced, never edited
+model_id: deepseek-v4-pro
+context_window: 1000000
+max_tokens: 65536
+pool: 4
+idle_timeout: 900
+max_turn_duration: 3600
+prompt: prompts/harness.md
+rust_log: buzz_acp=debug

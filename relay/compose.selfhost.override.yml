@@ -1,0 +1,44 @@
+# Untracked override (selfhost posture), same pattern as the root project's.
+# Three jobs:
+#   1. Adopt the existing named volumes instead of provisioning empty ones.
+#   2. Keep the existing PGDATA layout — upstream expects a pgdata/ subdir,
+#      but the live volume holds the cluster at the mount root. Without this
+#      Postgres initdbs a second, empty cluster and the relay comes up blank.
+#   3. Serve TLS with the Tailscale cert.
+services:
+  # compose.caddy.yml resets every relay port. That silently breaks two
+  # things, neither visible from this file alone:
+  #   :3000 — tailscale serve proxies http://127.0.0.1:3000 and is the real
+  #           front door for every off-host client. Without it the tailnet
+  #           returns 502 while the host itself still answers 200, because
+  #           the host resolves its own tailnet name to 127.0.0.1 and hits
+  #           Caddy directly.
+  #   :8080 — the health check that docs/operations.md documents.
+  # Both bind loopback only; nothing reaches a public interface.
+  relay:
+    ports: !override
+      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:8080:8080"
+
+  postgres:
+    environment:
+      PGDATA: /var/lib/postgresql/data
+
+  caddy:
+    environment:
+      TLS_HOST: ${TLS_HOST}
+    volumes: !override
+      - ${HOME}/.config/buzz-agents/certs:/certs:ro
+      - ./Caddyfile.selfhost:/etc/caddy/Caddyfile:ro
+      - buzz-caddy-data:/data
+      - buzz-caddy-config:/config
+
+# !override replaces the base definition wholesale: base sets labels, and
+# compose rejects "external" and "labels" together.
+volumes:
+  buzz-postgres-data: !override
+    name: buzz-postgres-data
+    external: true
+  buzz-minio-data: !override
+    name: buzz-minio-data
+    external: true

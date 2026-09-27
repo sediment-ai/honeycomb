@@ -1,0 +1,13 @@
+# Selfhost Caddyfile: Tailscale cert instead of upstream's Let's Encrypt.
+# Mounted over the tracked Caddyfile by compose.selfhost.override.yml, so the
+# checkout stays clean. TLS_HOST is the tailnet name the cert is issued
+# for; the override passes it in from .env, so no hostname lives here.
+{
+	admin off
+	auto_https off
+}
+https://:443 {
+	encode zstd gzip
+	tls /certs/{$TLS_HOST}.crt /certs/{$TLS_HOST}.key
+	reverse_proxy relay:3000
+}
